@@ -4,11 +4,10 @@ using System.Text;
 
 namespace ObjectOrientedPrinciples.CoffeeService.Enum
 {
-    public enum CoffeeSelectionEnum : byte
+    public enum CupSizeEnum : byte
     {
-        Drip = 1,
-        EspressoShot = 2,
-        Americano = 3,
-        PourOver = 4
+        Small = 1,
+        Medium = 2,
+        Large = 3
     }
 }

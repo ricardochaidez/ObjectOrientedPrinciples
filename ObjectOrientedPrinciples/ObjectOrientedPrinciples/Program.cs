@@ -17,7 +17,7 @@ namespace ObjectOrientedPrinciples
             List<Coffee> coffeeSelections = GetCoffeeSelections();
             foreach (var coffee in coffeeSelections)
             {
-                Console.WriteLine($"{coffee.ID} - {coffee.Name} {coffee.RoastTypeEnum} Roast. {coffee.CoffeeSelection}");
+                Console.WriteLine($"{coffee.ID} - {coffee.Name}");
             }
 
             string coffeeInput = Console.ReadLine();
@@ -27,12 +27,18 @@ namespace ObjectOrientedPrinciples
             Coffee selectedCoffee = coffeeSelections.FirstOrDefault(x => x.ID == selectedCoffeeID);
             if (selectedCoffee == null) { Console.WriteLine("Coffee selection does not exists"); return; }
 
-            Console.Write("Enter ounces of water:");
-            string ouncesOfWaterInput = Console.ReadLine();
-            double ouncesOfWater;
-            if (!double.TryParse(ouncesOfWaterInput, out ouncesOfWater)) { Console.WriteLine("Invalid Input"); return; }
+            Console.WriteLine("Select Size:");
+            Console.WriteLine("1 - Small");
+            Console.WriteLine("2 - Medium");
+            Console.WriteLine("3 - Large");
 
-            var coffeeMachine = new CoffeeMachine(selectedCoffee, ouncesOfWater);
+            string cupSizeInput = Console.ReadLine();
+            byte cupSizeEnumID = 0;
+            if (!byte.TryParse(cupSizeInput, out cupSizeEnumID) || cupSizeEnumID < 1 || cupSizeEnumID > 3) { Console.WriteLine("Invalid Input"); return; }
+
+            var cupSizeEnum = (CupSizeEnum)cupSizeEnumID;
+
+            var coffeeMachine = new CoffeeMachine(selectedCoffee, cupSizeEnum);
             var brewedCoffee = coffeeMachine.BrewCoffee();
         }
 
@@ -40,36 +46,47 @@ namespace ObjectOrientedPrinciples
         {
             var coffeeSelections = new List<Coffee>();
 
-            var colombianCoffee = new Coffee
+            var espressoShotCoffee = new Coffee
             {
                 ID = 1,
-                Name = "Colombian",
+                Name = "Espresso-Shot",
                 Quantity = 2, //Tablespoons
                 RoastTypeEnum = RoastTypeEnum.Light,
-                CoffeeSelection = CoffeeSelectionEnum.Espresso
+                CoffeeSelection = CoffeeSelectionEnum.EspressoShot
             };
-            coffeeSelections.Add(colombianCoffee);
+            coffeeSelections.Add(espressoShotCoffee);
 
-            var arabicCoffee = new Coffee
+            var dripCoffee = new Coffee
             {
                 ID = 2,
-                Name = "Arabic",
+                Name = "Drip Coffee",
                 Quantity = 3, //Tablespoons
                 RoastTypeEnum = RoastTypeEnum.Medium,
-                CoffeeSelection = CoffeeSelectionEnum.FilteredCoffee
+                CoffeeSelection = CoffeeSelectionEnum.Drip
             };
-            coffeeSelections.Add(arabicCoffee);
+            coffeeSelections.Add(dripCoffee);
 
-            var ethiopianCoffee = new Coffee
+            var americanoCoffee = new Coffee
             {
                 ID = 3,
-                Name = "Ethiopian ",
+                Name = "Americano",
                 Quantity = 2, //Tablespoons
                 RoastTypeEnum = RoastTypeEnum.Dark,
-                CoffeeSelection = CoffeeSelectionEnum.Espresso
+                CoffeeSelection = CoffeeSelectionEnum.Americano
             };
 
-            coffeeSelections.Add(ethiopianCoffee);
+            coffeeSelections.Add(americanoCoffee);
+
+            var pourOverCoffee = new Coffee
+            {
+                ID = 4,
+                Name = "Pour Over Coffee ",
+                Quantity = 2, //Tablespoons
+                RoastTypeEnum = RoastTypeEnum.Dark,
+                CoffeeSelection = CoffeeSelectionEnum.PourOver
+            };
+
+            coffeeSelections.Add(pourOverCoffee);
 
             return coffeeSelections;
         }

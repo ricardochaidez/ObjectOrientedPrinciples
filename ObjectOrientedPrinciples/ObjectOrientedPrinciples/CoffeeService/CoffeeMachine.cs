@@ -8,12 +8,23 @@ namespace ObjectOrientedPrinciples.CoffeeService
     public class CoffeeMachine
     {
         private Coffee _coffee;
-        private double _ouncesOfWater;
+        private string _cupSizeName;
 
-        public CoffeeMachine(Coffee coffee, double ouncesOfWater)
+        public CoffeeMachine(Coffee coffee, CupSizeEnum cupSizeEnum)
         {
             _coffee = coffee;
-            _ouncesOfWater = ouncesOfWater;
+            switch (cupSizeEnum)
+            {
+                case CupSizeEnum.Small:
+                    _cupSizeName = "Small";
+                    break;
+                case CupSizeEnum.Medium:
+                    _cupSizeName = "Medium";
+                    break;
+                case CupSizeEnum.Large:
+                    _cupSizeName = "Large";
+                    break;
+            }
         }
 
         public Coffee BrewCoffee()
@@ -22,11 +33,17 @@ namespace ObjectOrientedPrinciples.CoffeeService
 
             switch (_coffee.CoffeeSelection)
             {
-                case CoffeeSelectionEnum.Espresso:
-                    brewedCoffee = BrewEspresso();
+                case CoffeeSelectionEnum.EspressoShot:
+                    brewedCoffee = BrewEspressoShot();
                     break;
-                case CoffeeSelectionEnum.FilteredCoffee:
-                    brewedCoffee = BrewFilteredCoffee();
+                case CoffeeSelectionEnum.Americano:
+                    brewedCoffee = BrewAmericano();
+                    break;
+                case CoffeeSelectionEnum.Drip:
+                    brewedCoffee = BrewDrip();
+                    break;
+                case CoffeeSelectionEnum.PourOver:
+                    brewedCoffee = BrewPourOver();
                     break;
                 default:
                     Console.WriteLine("Coffee Selection not chosen.");
@@ -47,16 +64,37 @@ namespace ObjectOrientedPrinciples.CoffeeService
             return brewedCoffee;
         }
 
-        private Coffee BrewEspresso()
+        private Coffee BrewEspressoShot()
         {
-            Console.WriteLine($"Brewing {_ouncesOfWater}oz of {_coffee.Name} espresso coffee");
+            DisplayProcessStep();
+            //Do whatever needs to be done to brew espressoShot
             return _coffee;
         }
 
-        private Coffee BrewFilteredCoffee()
+        private Coffee BrewAmericano()
         {
-            Console.WriteLine($"Brewing {_ouncesOfWater}oz of {_coffee.Name} filtered coffee");
+            DisplayProcessStep();
+            //Do whatever needs to be done to brew americano
             return _coffee;
+        }
+
+        private Coffee BrewDrip()
+        {
+            DisplayProcessStep();
+            //Do whatever needs to be done to brew drip coffee
+            return _coffee;
+        }
+
+        private Coffee BrewPourOver()
+        {
+            DisplayProcessStep();
+            //Do whatever needs to be done to brew pour over coffee
+            return _coffee;
+        }
+
+        private void DisplayProcessStep()
+        {
+            Console.WriteLine($"Brewing {_cupSizeName} cup of {_coffee.Name}");
         }
     }
 }

@@ -40,6 +40,7 @@ namespace ObjectOrientedPrinciples
 
             var coffeeMachine = new CoffeeMachine(selectedCoffee, cupSizeEnum);
             var brewedCoffee = coffeeMachine.BrewCoffee();
+            coffeeMachine.DisplayFinalStep();
         }
 
         private static List<Coffee> GetCoffeeSelections()
